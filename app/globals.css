@@ -1,0 +1,248 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Dark base - Weavy uses a very dark interface */
+  --background: oklch(0.13 0.01 285);
+  --foreground: oklch(0.95 0 0);
+
+  /* Cards/Surfaces */
+  --card: oklch(0.17 0.01 285);
+  --card-foreground: oklch(0.95 0 0);
+
+  /* Popovers */
+  --popover: oklch(0.15 0.01 285);
+  --popover-foreground: oklch(0.95 0 0);
+
+  /* Primary - Purple accent like Weavy */
+  --primary: oklch(0.65 0.25 285);
+  --primary-foreground: oklch(0.98 0 0);
+
+  /* Secondary */
+  --secondary: oklch(0.22 0.02 285);
+  --secondary-foreground: oklch(0.9 0 0);
+
+  /* Muted */
+  --muted: oklch(0.2 0.01 285);
+  --muted-foreground: oklch(0.6 0 0);
+
+  /* Accent */
+  --accent: oklch(0.65 0.25 285);
+  --accent-foreground: oklch(0.98 0 0);
+
+  /* Destructive */
+  --destructive: oklch(0.55 0.22 25);
+  --destructive-foreground: oklch(0.98 0 0);
+
+  /* Borders */
+  --border: oklch(0.28 0.02 285);
+  --input: oklch(0.22 0.02 285);
+  --ring: oklch(0.65 0.25 285);
+
+  /* Canvas specific */
+  --canvas: oklch(0.11 0.01 285);
+  --canvas-dot: oklch(0.25 0.02 285);
+  --node-bg: oklch(0.18 0.015 285);
+  --node-border: oklch(0.3 0.03 285);
+  --node-glow: oklch(0.65 0.25 285);
+
+  /* Sidebar */
+  --sidebar: oklch(0.14 0.01 285);
+  --sidebar-foreground: oklch(0.9 0 0);
+  --sidebar-border: oklch(0.25 0.02 285);
+  --sidebar-accent: oklch(0.2 0.02 285);
+
+  /* Status colors */
+  --success: oklch(0.65 0.2 145);
+  --warning: oklch(0.75 0.18 85);
+  --error: oklch(0.55 0.22 25);
+
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.145 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.439 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
+}
+
+@theme inline {
+  /* optional: --font-sans, --font-serif, --font-mono if they are applied in the layout.tsx */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-canvas: var(--canvas);
+  --color-canvas-dot: var(--canvas-dot);
+  --color-node-bg: var(--node-bg);
+  --color-node-border: var(--node-border);
+  --color-node-glow: var(--node-glow);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* React Flow custom styles for Weavy theme */
+.react-flow__background {
+  background-color: var(--canvas) !important;
+}
+
+.react-flow__background-pattern {
+  fill: var(--canvas-dot) !important;
+}
+
+.react-flow__edge-path {
+  stroke: var(--primary) !important;
+  stroke-width: 2px;
+}
+
+.react-flow__edge.animated path {
+  stroke-dasharray: 5;
+  animation: dashdraw 0.5s linear infinite;
+}
+
+@keyframes dashdraw {
+  from {
+    stroke-dashoffset: 10;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Node glow effect for running state */
+@keyframes node-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 oklch(0.65 0.25 285 / 0.4);
+  }
+  50% {
+    box-shadow: 0 0 20px 8px oklch(0.65 0.25 285 / 0.6);
+  }
+}
+
+.node-running {
+  animation: node-pulse 1.5s ease-in-out infinite;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--muted);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}
+
+/* Handle connection styles */
+.react-flow__handle {
+  width: 12px !important;
+  height: 12px !important;
+  border: 2px solid var(--border) !important;
+  background: var(--card) !important;
+}
+
+.react-flow__handle:hover {
+  background: var(--primary) !important;
+  border-color: var(--primary) !important;
+}
+
+.react-flow__handle-connecting {
+  background: var(--primary) !important;
+}
+
+.react-flow__handle-valid {
+  background: var(--success) !important;
+  border-color: var(--success) !important;
+}
+
+/* MiniMap styling */
+.react-flow__minimap {
+  background: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius) !important;
+}
+
+.react-flow__minimap-mask {
+  fill: var(--background) !important;
+  fill-opacity: 0.8 !important;
+}
+
+.react-flow__minimap-node {
+  fill: var(--primary) !important;
+  stroke: none !important;
+}

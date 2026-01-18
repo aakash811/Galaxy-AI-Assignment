@@ -1,0 +1,109 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String        @id @default(uuid())
+  clerkId      String        @unique @map("clerk_id")
+  email        String
+  name         String?
+  imageUrl     String?       @map("image_url")
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+  fileUploads  FileUpload[]
+  workflowRuns WorkflowRun[]
+  workflows    Workflow[]
+
+  @@map("users")
+}
+
+model Workflow {
+  id           String        @id @default(uuid())
+  userId       String        @map("user_id")
+  name         String        @default("Untitled Workflow")
+  description  String?
+  nodes        Json          @default("[]")
+  edges        Json          @default("[]")
+  viewport     Json          @default("{\"x\": 0, \"y\": 0, \"zoom\": 1}")
+  isSample     Boolean       @default(false) @map("is_sample")
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+  fileUploads  FileUpload[]
+  workflowRuns WorkflowRun[]
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("workflows")
+}
+
+model WorkflowRun {
+  id             String          @id @default(uuid())
+  workflowId     String          @map("workflow_id")
+  userId         String          @map("user_id")
+  status         String          @default("pending")
+  scope          String          @default("full")
+  startedAt      DateTime        @default(now()) @map("started_at")
+  completedAt    DateTime?       @map("completed_at")
+  durationMs     Int?            @map("duration_ms")
+  errorMessage   String?         @map("error_message")
+  createdAt      DateTime        @default(now()) @map("created_at")
+  nodeExecutions NodeExecution[]
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workflow       Workflow        @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+
+  @@index([workflowId])
+  @@index([userId])
+  @@map("workflow_runs")
+}
+
+enum WorkflowRunStatus {
+  PENDING
+  RUNNING
+  SUCCESS
+  FAILED
+}
+
+model NodeExecution {
+  id           String      @id @default(uuid())
+  runId        String      @map("run_id")
+  nodeId       String      @map("node_id")
+  nodeType     String      @map("node_type")
+  status       String      @default("pending")
+  inputs       Json        @default("{}")
+  outputs      Json        @default("{}")
+  startedAt    DateTime?   @map("started_at")
+  completedAt  DateTime?   @map("completed_at")
+  durationMs   Int?        @map("duration_ms")
+  errorMessage String?     @map("error_message")
+  createdAt    DateTime    @default(now()) @map("created_at")
+  workflowRun  WorkflowRun @relation(fields: [runId], references: [id], onDelete: Cascade)
+
+  @@index([runId])
+  @@map("node_executions")
+}
+
+model FileUpload {
+  id                    String    @id @default(uuid())
+  userId                String    @map("user_id")
+  workflowId            String?   @map("workflow_id")
+  nodeId                String?   @map("node_id")
+  fileType              String    @map("file_type")
+  originalName          String    @map("original_name")
+  fileUrl               String    @map("file_url")
+  thumbnailUrl          String?   @map("thumbnail_url")
+  mimeType              String?   @map("mime_type")
+  fileSize              Int?      @map("file_size")
+  transloaditAssemblyId String?   @map("transloadit_assembly_id")
+  createdAt             DateTime  @default(now()) @map("created_at")
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workflow              Workflow? @relation(fields: [workflowId], references: [id])
+
+  @@index([userId])
+  @@index([workflowId])
+  @@map("file_uploads")
+}
