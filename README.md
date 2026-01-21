@@ -2,6 +2,9 @@
 
 A full-featured workflow automation platform built with Next.js, React Flow, Trigger.dev, and Neon PostgreSQL. Create, execute, and monitor visual workflows for image and video processing with AI capabilities.
 
+## 🎥 Video Walkthrough
+[Watch the demo video](https://drive.google.com/file/d/1yhAFFO28iRfYKf4tQ8ymH0be_7xEvM9W/view?usp=drive_link)
+
 ## Features
 
 ### Core Workflow System
